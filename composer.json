@@ -1,0 +1,35 @@
+{
+    "name":        "adrenalinkin/visualize-entity-bundle",
+    "description": "Provides possibility for visualize entity data by yaml configuration",
+    "type":        "symfony-bundle",
+    "keywords":    ["symfony", "bundle", "visualize-entity", "visualizer"],
+    "license":     "MIT",
+
+    "authors": [
+        {
+            "email": "adrenalinkin@gmail.com",
+            "name":  "Viktor Linkin",
+            "role":  "Developer"
+        }
+    ],
+
+    "require": {
+        "adrenalinkin/config-helper":        "~1.0",
+        "adrenalinkin/entity-helper-bundle": "~1.0",
+        "doctrine/orm":                      "~2.5",
+        "php":                               "~5.6||~7.0",
+        "symfony/finder":                    "~2.8||~3.0",
+        "symfony/framework-bundle":          "~2.8||~3.0",
+        "twig/twig":                         "^1.35||^2.0"
+    },
+
+    "suggest": {
+        "symfony/symfony": "Allows more advanced functionality with full Symfony package"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Linkin\\Bundle\\VisualizeEntityBundle\\": ""
+        }
+    }
+}

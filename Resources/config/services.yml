@@ -1,0 +1,107 @@
+parameters:
+    linkin_visualize_entity.builder.class:                          Linkin\Bundle\VisualizeEntityBundle\Builder\ViewEntityBuilder
+    linkin_visualize_entity.handler.visualizer.class:               Linkin\Bundle\VisualizeEntityBundle\Handler\VisualizerHandler
+    linkin_visualize_entity.visualizer.array.class:                 Linkin\Bundle\VisualizeEntityBundle\Visualizer\ArrayVisualizer
+    linkin_visualize_entity.visualizer.boolean.class:               Linkin\Bundle\VisualizeEntityBundle\Visualizer\BooleanVisualizer
+    linkin_visualize_entity.visualizer.date_time.class:             Linkin\Bundle\VisualizeEntityBundle\Visualizer\DateTimeVisualizer
+    linkin_visualize_entity.visualizer.decimal.class:               Linkin\Bundle\VisualizeEntityBundle\Visualizer\DecimalVisualizer
+    linkin_visualize_entity.visualizer.default.class:               Linkin\Bundle\VisualizeEntityBundle\Visualizer\DefaultVisualizer
+    linkin_visualize_entity.visualizer.doctrine_collection.class:   Linkin\Bundle\VisualizeEntityBundle\Visualizer\DoctrineCollectionVisualizer
+    linkin_visualize_entity.visualizer.integer.class:               Linkin\Bundle\VisualizeEntityBundle\Visualizer\IntegerVisualizer
+    linkin_visualize_entity.visualizer.money_format.class:          Linkin\Bundle\VisualizeEntityBundle\Visualizer\MoneyFormatVisualizer
+    linkin_visualize_entity.visualizer.number_format.class:         Linkin\Bundle\VisualizeEntityBundle\Visualizer\NumberFormatVisualizer
+    linkin_visualize_entity.visualizer.object.class:                Linkin\Bundle\VisualizeEntityBundle\Visualizer\ObjectVisualizer
+    linkin_visualize_entity.visualizer.string.class:                Linkin\Bundle\VisualizeEntityBundle\Visualizer\StringVisualizer
+    linkin_visualize_entity.visualizer.traversable.class:           Linkin\Bundle\VisualizeEntityBundle\Visualizer\TraversableVisualizer
+
+services:
+    linkin_visualize_entity.builder:
+        class:      '%linkin_visualize_entity.builder.class%'
+        arguments:
+            - '%linkin_visualize_entity.configurations%'
+            - '@linkin_entity_helper.helper'
+            - '@linkin_visualize_entity.handler.visualizer'
+            - '@translator'
+
+    linkin_visualize_entity.handler.visualizer:
+        class:      '%linkin_visualize_entity.handler.visualizer.class%'
+        arguments:
+            - []
+            - []
+
+    linkin_visualize_entity.visualizer.array:
+        class:      '%linkin_visualize_entity.visualizer.array.class%'
+        arguments:
+            - '@linkin_visualize_entity.handler.visualizer'
+        tags:
+            # low priority as less used type
+            - { name: linkin_visualize_entity.visualizer, priority: -10, traversable: 1 }
+
+    linkin_visualize_entity.visualizer.boolean:
+        class:      '%linkin_visualize_entity.visualizer.boolean.class%'
+        arguments:
+            - '@translator'
+        tags:
+            - { name: linkin_visualize_entity.visualizer, priority: 10 }
+
+    linkin_visualize_entity.visualizer.date_time:
+        class:      '%linkin_visualize_entity.visualizer.date_time.class%'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+        tags:
+            - { name: linkin_visualize_entity.visualizer, priority: 10 }
+
+    linkin_visualize_entity.visualizer.decimal:
+        class:      '%linkin_visualize_entity.visualizer.decimal.class%'
+        tags:
+            - { name: linkin_visualize_entity.visualizer, priority: 10 }
+
+    linkin_visualize_entity.visualizer.default:
+        class:      '%linkin_visualize_entity.visualizer.default.class%'
+        tags:
+            # should be used when no one visualizer can't be apply
+            - { name: linkin_visualize_entity.visualizer, priority: -9999 }
+
+    linkin_visualize_entity.visualizer.doctrine_collection:
+        class:      '%linkin_visualize_entity.visualizer.doctrine_collection.class%'
+        parent:     linkin_visualize_entity.visualizer.array
+        tags:
+            # low priority as less used type, but should be higher than traversable
+            - { name: linkin_visualize_entity.visualizer, priority: 5, traversable: 1 }
+
+    linkin_visualize_entity.visualizer.integer:
+        class:      '%linkin_visualize_entity.visualizer.integer.class%'
+        tags:
+            # use first as most used type
+            - { name: linkin_visualize_entity.visualizer, priority: 50 }
+
+    # shouldn't be used automatically
+    linkin_visualize_entity.visualizer.money_format:
+        class:      '%linkin_visualize_entity.visualizer.money_format.class%'
+        tags:
+            - { name: linkin_visualize_entity.visualizer, manual_usage_only: 1 }
+
+    # shouldn't be used automatically
+    linkin_visualize_entity.visualizer.number_format:
+        class:      '%linkin_visualize_entity.visualizer.number_format.class%'
+        tags:
+            - { name: linkin_visualize_entity.visualizer, manual_usage_only: 1 }
+
+    linkin_visualize_entity.visualizer.object:
+        class:      '%linkin_visualize_entity.visualizer.object.class%'
+        tags:
+            # should be used after target object visualizers
+            - { name: linkin_visualize_entity.visualizer, priority: -50 }
+
+    linkin_visualize_entity.visualizer.string:
+        class:      '%linkin_visualize_entity.visualizer.string.class%'
+        tags:
+            # use first as most used type
+            - { name: linkin_visualize_entity.visualizer, priority: 50 }
+
+    linkin_visualize_entity.visualizer.traversable:
+        class:      '%linkin_visualize_entity.visualizer.traversable.class%'
+        parent:     linkin_visualize_entity.visualizer.array
+        tags:
+            # low priority as less used type
+            - { name: linkin_visualize_entity.visualizer, priority: -10, traversable: 1 }
