@@ -13,7 +13,7 @@ Visualize Entity Bundle [![In English](https://img.shields.io/badge/Switch_To-En
 
 Откройте консоль и, перейдя в директорию проекта, выполните следующую команду для загрузки наиболее подходящей
 стабильной версии этого бандла:
-```text
+```bash
     composer require adrenalinkin/visualize-entity-bundle
 ```
 *Эта команда подразумевает что [Composer](https://getcomposer.org) установлен и доступен глобально.*

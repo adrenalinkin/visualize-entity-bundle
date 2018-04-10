@@ -2,7 +2,7 @@
     "name":        "adrenalinkin/visualize-entity-bundle",
     "description": "Provides possibility for visualize entity data by yaml configuration",
     "type":        "symfony-bundle",
-    "keywords":    ["symfony", "bundle", "visualize-entity", "visualizer"],
+    "keywords":    ["symfony-bundle", "visualize-entity", "visualizer", "yaml-configuration"],
     "license":     "MIT",
 
     "authors": [
